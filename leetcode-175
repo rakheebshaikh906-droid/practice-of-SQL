@@ -1,0 +1,33 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS leetcode_db;
+USE leetcode_db;
+
+-- Create Person Table
+CREATE TABLE Person (
+    personId INT PRIMARY KEY,
+    firstName VARCHAR(50),
+    lastName VARCHAR(50)
+);
+
+-- Create Address Table
+CREATE TABLE Address (
+    addressId INT PRIMARY KEY,
+    personId INT,
+    city VARCHAR(50),
+    state VARCHAR(50)
+);
+
+-- Insert Sample Data
+INSERT INTO Person (personId, firstName, lastName) VALUES
+(1, 'Allen', 'Wang'),
+(2, 'Bob', 'Alice');
+
+INSERT INTO Address (addressId, personId, city, state) VALUES
+(1, 2, 'New York City', 'New York'),
+(2, 3, 'Leetcode', 'California');
+
+-- Query: Combine Two Tables
+SELECT p.firstName, p.lastName, a.city, a.state
+FROM Person p
+LEFT JOIN Address a
+ON p.personId = a.personId;
