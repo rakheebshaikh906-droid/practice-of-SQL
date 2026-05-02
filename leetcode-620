@@ -1,0 +1,25 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS leetcode_db;
+USE leetcode_db;
+
+-- Create Cinema Table
+CREATE TABLE Cinema (
+    id INT,
+    movie VARCHAR(50),
+    description VARCHAR(50),
+    rating FLOAT
+);
+
+-- Insert Sample Data
+INSERT INTO Cinema (id, movie, description, rating) VALUES
+(1, 'A', 'boring', 3.0),
+(2, 'B', 'great', 8.0),
+(3, 'C', 'good', 6.2),
+(4, 'D', 'boring', 2.5),
+(5, 'E', 'skytop', 9.9);
+
+-- Query: Not boring movies with odd id
+SELECT id, movie, description, rating
+FROM Cinema
+WHERE id % 2 != 0 AND description != 'boring'
+ORDER BY rating DESC;
