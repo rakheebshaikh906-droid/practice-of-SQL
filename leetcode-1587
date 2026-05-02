@@ -1,0 +1,37 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS leetcode_db;
+USE leetcode_db;
+
+-- Create Users Table
+CREATE TABLE Users (
+    account INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+-- Create Transactions Table
+CREATE TABLE Transactions (
+    trans_id INT PRIMARY KEY,
+    account INT,
+    amount INT
+);
+
+-- Insert Sample Data
+INSERT INTO Users (account, name) VALUES
+(9001, 'Alice'),
+(9002, 'Bob'),
+(9003, 'Charlie');
+
+INSERT INTO Transactions (trans_id, account, amount) VALUES
+(1, 9001, 7000),
+(2, 9001, 7000),
+(3, 9002, 3000),
+(4, 9002, 2000),
+(5, 9003, 15000);
+
+-- Query: Users with total balance > 10000
+SELECT u.name, SUM(t.amount) AS balance
+FROM Users u
+JOIN Transactions t
+ON u.account = t.account
+GROUP BY u.name
+HAVING SUM(t.amount) > 10000;
