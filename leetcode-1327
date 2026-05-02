@@ -1,0 +1,39 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS leetcode_db;
+USE leetcode_db;
+
+-- Create Products Table
+CREATE TABLE Products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(50)
+);
+
+-- Create Orders Table
+CREATE TABLE Orders (
+    product_id INT,
+    order_date DATE,
+    unit INT
+);
+
+-- Insert Sample Data
+INSERT INTO Products (product_id, product_name) VALUES
+(1, 'Leetcode Solutions'),
+(2, 'Jewels of Stringology'),
+(3, 'HP');
+
+INSERT INTO Orders (product_id, order_date, unit) VALUES
+(1, '2020-02-05', 60),
+(1, '2020-02-10', 70),
+(2, '2020-01-15', 30),
+(2, '2020-02-20', 80),
+(3, '2020-02-10', 50);
+
+-- Query: Products with at least 100 units ordered in Feb 2020
+SELECT p.product_name, SUM(o.unit) AS unit
+FROM Products p
+JOIN Orders o
+ON p.product_id = o.product_id
+WHERE o.order_date >= '2020-02-01'
+  AND o.order_date < '2020-03-01'
+GROUP BY p.product_name
+HAVING SUM(o.unit) >= 100;
