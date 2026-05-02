@@ -1,0 +1,28 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS leetcode_db;
+USE leetcode_db;
+
+-- Create Courses Table
+CREATE TABLE Courses (
+    student VARCHAR(50),
+    class VARCHAR(50)
+);
+
+-- Insert Sample Data
+INSERT INTO Courses (student, class) VALUES
+('A', 'Math'),
+('B', 'English'),
+('C', 'Math'),
+('D', 'Biology'),
+('E', 'Math'),
+('F', 'Math'),
+('G', 'Math'),
+('H', 'English'),
+('I', 'English'),
+('J', 'Math');
+
+-- Query: Classes with at least 5 students
+SELECT class
+FROM Courses
+GROUP BY class
+HAVING COUNT(class) >= 5;
