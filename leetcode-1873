@@ -1,0 +1,28 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS leetcode_db;
+USE leetcode_db;
+
+-- Create Employees Table
+CREATE TABLE Employees (
+    employee_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    salary INT
+);
+
+-- Insert Sample Data
+INSERT INTO Employees (employee_id, name, salary) VALUES
+(2, 'Meir', 3000),
+(3, 'Michael', 3800),
+(7, 'Addilyn', 7400),
+(8, 'Juan', 6100),
+(9, 'Kannon', 7700);
+
+-- Query: Calculate Special Bonus
+SELECT employee_id,
+CASE
+    WHEN employee_id % 2 != 0 AND name NOT LIKE 'M%'
+    THEN salary
+    ELSE 0
+END AS bonus
+FROM Employees
+ORDER BY employee_id;
