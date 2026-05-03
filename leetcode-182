@@ -1,0 +1,21 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS leetcode_db;
+USE leetcode_db;
+
+-- Create Person Table
+CREATE TABLE Person (
+    id INT PRIMARY KEY,
+    email VARCHAR(50)
+);
+
+-- Insert Sample Data
+INSERT INTO Person (id, email) VALUES
+(1, 'a@b.com'),
+(2, 'c@d.com'),
+(3, 'a@b.com');
+
+-- Query: Find duplicate emails
+SELECT email AS Email
+FROM Person
+GROUP BY email
+HAVING COUNT(*) > 1;
