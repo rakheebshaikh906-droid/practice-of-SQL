@@ -1,0 +1,23 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS leetcode_db;
+USE leetcode_db;
+
+-- Create Employee Table
+CREATE TABLE Employee (
+    id INT PRIMARY KEY,
+    salary INT
+);
+
+-- Insert Sample Data
+INSERT INTO Employee (id, salary) VALUES
+(1, 100),
+(2, 200),
+(3, 300);
+
+-- Query: Second Highest Salary
+SELECT (
+    SELECT DISTINCT salary
+    FROM Employee
+    ORDER BY salary DESC
+    LIMIT 1 OFFSET 1
+) AS SecondHighestSalary;
