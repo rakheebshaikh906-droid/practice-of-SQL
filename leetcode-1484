@@ -1,0 +1,28 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS leetcode_db;
+USE leetcode_db;
+
+-- Create Activities Table
+CREATE TABLE Activities (
+    sell_date DATE,
+    product VARCHAR(50)
+);
+
+-- Insert Sample Data
+INSERT INTO Activities (sell_date, product) VALUES
+('2020-05-30', 'Headphone'),
+('2020-05-30', 'Keyboard'),
+('2020-05-30', 'Mouse'),
+('2020-06-01', 'Keyboard'),
+('2020-06-01', 'Mouse'),
+('2020-06-01', 'Monitor'),
+('2020-06-02', 'Mouse'),
+('2020-06-02', 'Mouse');
+
+-- Query: Group products by date
+SELECT sell_date,
+       COUNT(DISTINCT product) AS num_sold,
+       GROUP_CONCAT(DISTINCT product ORDER BY product) AS products
+FROM Activities
+GROUP BY sell_date
+ORDER BY sell_date;
