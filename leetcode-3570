@@ -1,0 +1,55 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS library_db;
+USE library_db;
+
+-- Create library_books Table
+CREATE TABLE library_books (
+    book_id INT PRIMARY KEY,
+    title VARCHAR(100),
+    author VARCHAR(100),
+    genre VARCHAR(50),
+    publication_year INT,
+    total_copies INT
+);
+
+-- Create borrowing_records Table
+CREATE TABLE borrowing_records (
+    record_id INT PRIMARY KEY,
+    book_id INT,
+    borrower_name VARCHAR(100),
+    borrow_date DATE,
+    return_date DATE
+);
+
+-- Insert Sample Data
+INSERT INTO library_books 
+(book_id, title, author, genre, publication_year, total_copies)
+VALUES
+(1, 'Atomic Habits', 'James Clear', 'Self Help', 2018, 2),
+(2, 'Clean Code', 'Robert C. Martin', 'Programming', 2008, 3),
+(3, 'The Alchemist', 'Paulo Coelho', 'Fiction', 1988, 1);
+
+INSERT INTO borrowing_records
+(record_id, book_id, borrower_name, borrow_date, return_date)
+VALUES
+(101, 1, 'Rakheeb', '2026-01-01', NULL),
+(102, 1, 'Ali', '2026-01-05', NULL),
+(103, 2, 'John', '2026-01-03', NULL),
+(104, 2, 'Mike', '2026-01-06', NULL),
+(105, 3, 'Sara', '2026-01-04', NULL);
+
+-- Query: Fully borrowed books
+SELECT 
+    l.book_id,
+    title,
+    author,
+    genre,
+    publication_year,
+    COUNT(l.book_id) AS current_borrowers
+FROM library_books AS l
+INNER JOIN borrowing_records AS b
+ON l.book_id = b.book_id
+WHERE return_date IS NULL
+GROUP BY 1,2,3,4,5,total_copies
+HAVING COUNT(b.book_id) = l.total_copies
+ORDER BY current_borrowers DESC, title ASC;
